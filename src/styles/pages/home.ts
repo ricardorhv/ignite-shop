@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { styled } from '..'
 
 export const HomeContainer = styled('main', {
@@ -8,7 +9,7 @@ export const HomeContainer = styled('main', {
   marginLeft: 'auto',
 })
 
-export const Product = styled('a', {
+export const Product = styled(Link, {
   background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
   borderRadius: 8,
   cursor: 'pointer',
@@ -28,13 +29,14 @@ export const Product = styled('a', {
     bottom: '0.25rem',
     right: '0.25rem',
     left: '0.25rem',
-    padding: '2rem',
+    padding: '1rem',
 
     borderRadius: 6,
 
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    gap: '0.5rem',
+    flexDirection: 'column',
 
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
 
@@ -44,12 +46,20 @@ export const Product = styled('a', {
 
     strong: {
       fontSize: '$lg',
+      display: 'block',
+      color: '$gray100',
     },
 
     span: {
       fontSize: '$xl',
       fontWeight: 'bold',
       color: '$green300',
+      alignSelf: 'flex-end',
+    },
+
+    small: {
+      fontSize: '$sm',
+      color: '$gray400',
     },
   },
 
