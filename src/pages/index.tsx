@@ -8,7 +8,6 @@ import { stripe } from '@/lib/stripe'
 import Stripe from 'stripe'
 
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
-import { useEffect } from 'react'
 
 interface ProductProps {
   id: string
