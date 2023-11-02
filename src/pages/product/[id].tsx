@@ -12,6 +12,7 @@ import Stripe from 'stripe'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import { useState } from 'react'
+import Head from 'next/head'
 
 interface ProductProps {
   id: string
@@ -51,22 +52,31 @@ export default function Product({
     }
   }
   return (
-    <ProductContainer>
-      <ImageContainer>
-        <Image src={product.imageUrl} width={520} height={480} alt="" />
-      </ImageContainer>
+    <>
+      <Head>
+        <title>{product.name} | Ignite shop</title>
+      </Head>
 
-      <ProductDetails>
-        <h1>{product.name}</h1>
-        <span>{product.price}</span>
+      <ProductContainer>
+        <ImageContainer>
+          <Image src={product.imageUrl} width={520} height={480} alt="" />
+        </ImageContainer>
 
-        <p>{product.description}</p>
+        <ProductDetails>
+          <h1>{product.name}</h1>
+          <span>{product.price}</span>
 
-        <button disabled={isCreatingCheckoutSection} onClick={handleBuyProduct}>
-          Comprar agora
-        </button>
-      </ProductDetails>
-    </ProductContainer>
+          <p>{product.description}</p>
+
+          <button
+            disabled={isCreatingCheckoutSection}
+            onClick={handleBuyProduct}
+          >
+            Comprar agora
+          </button>
+        </ProductDetails>
+      </ProductContainer>
+    </>
   )
 }
 

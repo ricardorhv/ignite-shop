@@ -8,6 +8,7 @@ import { stripe } from '@/lib/stripe'
 import Stripe from 'stripe'
 
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
+import Head from 'next/head'
 
 interface ProductProps {
   id: string
@@ -28,23 +29,28 @@ export default function Home({
   })
 
   return (
-    <HomeContainer ref={sliderRef} className="keen-slider">
-      {products.map((product) => (
-        <Product
-          href={`/product/${product.id}`}
-          key={product.id}
-          className="keen-slider__slide"
-        >
-          <Image src={product.imageUrl} width={520} height={480} alt="" />
+    <>
+      <Head>
+        <title>Home | Ignite shop</title>
+      </Head>
+      <HomeContainer ref={sliderRef} className="keen-slider">
+        {products.map((product) => (
+          <Product
+            href={`/product/${product.id}`}
+            key={product.id}
+            className="keen-slider__slide"
+          >
+            <Image src={product.imageUrl} width={520} height={480} alt="" />
 
-          <footer>
-            <strong>{product.name}</strong>
-            <small>{product.description}</small>
-            <span>{product.price}</span>
-          </footer>
-        </Product>
-      ))}
-    </HomeContainer>
+            <footer>
+              <strong>{product.name}</strong>
+              <small>{product.description}</small>
+              <span>{product.price}</span>
+            </footer>
+          </Product>
+        ))}
+      </HomeContainer>
+    </>
   )
 }
 
