@@ -1,4 +1,9 @@
-import { HomeContainer, Product } from '@/styles/pages/home'
+import {
+  HomeContainer,
+  NavigationLeft,
+  NavigationRight,
+  Product,
+} from '@/styles/pages/home'
 import Image from 'next/image'
 
 import { useKeenSlider } from 'keen-slider/react'
@@ -9,6 +14,8 @@ import Stripe from 'stripe'
 
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
 import Head from 'next/head'
+import { CaretLeft, CaretRight, Handbag } from '@phosphor-icons/react'
+import { useState } from 'react'
 
 interface ProductProps {
   id: string
@@ -21,12 +28,29 @@ interface ProductProps {
 export default function Home({
   products,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const [sliderRef] = useKeenSlider({
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [sliderRef, slider] = useKeenSlider({
+    initial: 0,
     slides: {
       perView: 3,
       spacing: 48,
     },
+    slideChanged: (slide) => {
+      setCurrentSlide(slide.track.details.rel)
+    },
   })
+
+  function prevSlide() {
+    slider.current?.prev()
+  }
+
+  function nextSlide() {
+    slider.current?.next()
+  }
+
+  const isAtTheLastSlide = Math.ceil(
+    (slider.current?.track.details.slides.length - 1) / 3,
+  )
 
   return (
     <>
@@ -34,6 +58,10 @@ export default function Home({
         <title>Home | Ignite shop</title>
       </Head>
       <HomeContainer ref={sliderRef} className="keen-slider">
+        <NavigationLeft onClick={prevSlide} disabled={currentSlide === 0}>
+          <CaretLeft size={40} weight="bold" />
+        </NavigationLeft>
+
         {products.map((product) => (
           <Product
             href={`/product/${product.id}`}
@@ -43,12 +71,23 @@ export default function Home({
             <Image src={product.imageUrl} width={520} height={480} alt="" />
 
             <footer>
-              <strong>{product.name}</strong>
-              <small>{product.description}</small>
-              <span>{product.price}</span>
+              <div>
+                <strong>{product.name}</strong>
+                <span>{product.price}</span>
+              </div>
+              <button>
+                <Handbag size={32} weight="bold" />
+              </button>
             </footer>
           </Product>
         ))}
+
+        <NavigationRight
+          onClick={nextSlide}
+          disabled={currentSlide === isAtTheLastSlide}
+        >
+          <CaretRight size={40} weight="bold" />
+        </NavigationRight>
       </HomeContainer>
     </>
   )

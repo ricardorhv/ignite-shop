@@ -18,6 +18,8 @@ export const { styled, globalCss, getCssText, theme, config, css, keyframes } =
         gray300: '#c4c4cc',
         gray100: '#e1e1e6',
 
+        icon: '#8D8D99',
+
         green500: '#00875f',
         green300: '#00b37e',
       },
