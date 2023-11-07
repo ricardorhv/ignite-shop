@@ -40,8 +40,8 @@ export const Product = styled(Link, {
 
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
 
-    // transform: 'translateY(110%)',
-    // opacity: 0,
+    transform: 'translateY(110%)',
+    opacity: 0,
     transition: 'all 0.2s ease-in-out',
 
     div: {
@@ -112,7 +112,7 @@ const Navigation = styled('button', {
 
   color: '$white',
 
-  zIndex: '9999',
+  zIndex: '500',
   cursor: 'pointer',
 
   border: 'none',
