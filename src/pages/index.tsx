@@ -15,7 +15,9 @@ import Stripe from 'stripe'
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
 import Head from 'next/head'
 import { CaretLeft, CaretRight, Handbag } from '@phosphor-icons/react'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { ShoppingCartContext } from '@/context/ShoppingCartContext'
+import { ProductCard } from '@/components/ProductCard'
 
 interface ProductProps {
   id: string
@@ -63,23 +65,7 @@ export default function Home({
         </NavigationLeft>
 
         {products.map((product) => (
-          <Product
-            href={`/product/${product.id}`}
-            key={product.id}
-            className="keen-slider__slide"
-          >
-            <Image src={product.imageUrl} width={520} height={480} alt="" />
-
-            <footer>
-              <div>
-                <strong>{product.name}</strong>
-                <span>{product.price}</span>
-              </div>
-              <button>
-                <Handbag size={32} weight="bold" />
-              </button>
-            </footer>
-          </Product>
+          <ProductCard key={product.id} {...product} />
         ))}
 
         <NavigationRight
@@ -110,6 +96,7 @@ export const getStaticProps = (async () => {
         style: 'currency',
         currency: 'BRL',
       }).format((price.unit_amount as number) / 100),
+      defaultPriceId: price.id,
     }
   })
 

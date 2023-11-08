@@ -13,15 +13,7 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import { useState } from 'react'
 import Head from 'next/head'
-
-interface ProductProps {
-  id: string
-  name: string
-  description: string
-  imageUrl: string
-  price: string
-  defaultPriceId: string
-}
+import { Product } from '@/types/interfaces'
 
 export default function Product({
   product,
@@ -70,9 +62,9 @@ export default function Product({
 
           <button
             disabled={isCreatingCheckoutSection}
-            onClick={handleBuyProduct}
+            // onClick={handleBuyProduct}
           >
-            Comprar agora
+            Colocar na sacola
           </button>
         </ProductDetails>
       </ProductContainer>
@@ -112,4 +104,4 @@ export const getStaticProps = (async ({ params }) => {
     },
     revalidate: 60 * 60 * 1,
   }
-}) satisfies GetStaticProps<{ product: ProductProps }, { id: string }>
+}) satisfies GetStaticProps<{ product: Product }, { id: string }>
