@@ -1,19 +1,26 @@
 import Link from 'next/link'
 import { styled } from '..'
 
-export const ProductCardContainer = styled(Link, {
-  background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
-  borderRadius: 8,
-  cursor: 'pointer',
+export const ProductCardContainer = styled('div', {
   position: 'relative',
   overflow: 'hidden',
 
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+  a: {
+    background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
+    borderRadius: 8,
+    cursor: 'pointer',
 
-  img: {
-    objectFit: 'cover',
+    height: '100%',
+
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    // padding: '5rem',
+
+    img: {
+      objectFit: 'cover',
+    },
   },
 
   footer: {

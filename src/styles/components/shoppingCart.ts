@@ -77,6 +77,11 @@ export const ShoppingCartContainer = styled('div', {
     animation: `${moveOut} 400ms ease-in-out`,
   },
 
+  section: {
+    width: '100%',
+    height: '100%',
+  },
+
   position: 'fixed',
   top: 0,
   right: 0,
@@ -84,6 +89,7 @@ export const ShoppingCartContainer = styled('div', {
   backgroundColor: '$gray800',
   height: '100vh',
   padding: '1.5rem 3rem 3rem',
+  width: '30rem',
 
   display: 'flex',
   flexDirection: 'column',
@@ -149,6 +155,29 @@ export const ShoppingCartContainer = styled('div', {
   },
 })
 
+export const ListOfCartItems = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '1.5rem',
+
+  height: '60%',
+
+  overflowY: 'scroll',
+
+  '&::-webkit-scrollbar': {
+    width: 5,
+  },
+
+  '&::-webkit-scrollbar-track': {
+    background: 'transparent',
+  },
+
+  '&::-webkit-scrollbar-thumb': {
+    backgroundColor: '$gray400',
+    borderRadius: 9999,
+  },
+})
+
 export const CloseButtonContainer = styled('div', {
   display: 'flex',
   justifyContent: 'flex-end',
@@ -165,46 +194,17 @@ export const CloseButton = styled('button', {
   cursor: 'pointer',
 })
 
-export const CartItem = styled('div', {
+export const EmptyShoppingCart = styled('div', {
   display: 'flex',
-  alignItems: 'flex-start',
-  gap: '1.25rem',
-})
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: '1rem',
 
-export const ItemContent = styled('div', {
-  lineHeight: 1.6,
-  fontSize: '$md',
-  color: '$gray300',
-  fontWeight: '400',
+  height: '100%',
+  textAlign: 'center',
 
   strong: {
-    color: '$white',
-    display: 'block',
-  },
-
-  button: {
-    marginTop: '0.5rem',
-    border: 'none',
-    outline: 'none',
-
-    color: '$green500',
-    background: 'transparent',
-    fontWeight: 'bold',
-    cursor: 'pointer',
-  },
-})
-
-export const ProductImageContainer = styled('div', {
-  background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
-  borderRadius: 8,
-  position: 'relative',
-  overflow: 'hidden',
-
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-
-  img: {
-    objectFit: 'cover',
+    fontSize: '$md',
   },
 })

@@ -4,21 +4,21 @@ import Image from 'next/image'
 import { useContext } from 'react'
 import { ShoppingCartContext } from '@/context/ShoppingCartContext'
 
-import { Handbag, X } from '@phosphor-icons/react'
+import { Handbag, SmileySad, X } from '@phosphor-icons/react'
 import camiseta from '@/assets/camisetas/1.png'
 
 import {
-  CartItem,
   CloseButton,
   CloseButtonContainer,
-  ItemContent,
-  ProductImageContainer,
+  EmptyShoppingCart,
+  ListOfCartItems,
   ShoppingCarButton,
   ShoppingCartContainer,
 } from '@/styles/components/shoppingCart'
+import { CartItem } from './CartItem'
 
 export function ShoppingCart() {
-  const { addProductToTheShoppingCart, shoppingCart } =
+  const { shoppingCart, removeProductFromTheShoppingCart } =
     useContext(ShoppingCartContext)
 
   const isShoppingCartEmpty = shoppingCart.quantityOfProducts === 0
@@ -42,44 +42,60 @@ export function ShoppingCart() {
       <Dialog.Portal>
         <Dialog.Content asChild>
           <ShoppingCartContainer>
-            <section>
-              <CloseButtonContainer>
-                <Dialog.Close asChild>
-                  <CloseButton>
-                    <X size={24} weight="bold" />
-                  </CloseButton>
-                </Dialog.Close>
-              </CloseButtonContainer>
+            {isShoppingCartEmpty ? (
+              <section>
+                <CloseButtonContainer>
+                  <Dialog.Close asChild>
+                    <CloseButton>
+                      <X size={24} weight="bold" />
+                    </CloseButton>
+                  </Dialog.Close>
+                </CloseButtonContainer>
 
-              <Dialog.Title>Sacola de compras</Dialog.Title>
+                <EmptyShoppingCart>
+                  <SmileySad size={128} />
 
-              <CartItem>
-                <ProductImageContainer>
-                  <Image src={camiseta.src} width={90} height={90} alt="" />
-                </ProductImageContainer>
+                  <strong>
+                    Você não possui items na sua sacola de compras!
+                  </strong>
+                  <span>Adicione items para poder visualizar eles aqui</span>
+                </EmptyShoppingCart>
+              </section>
+            ) : (
+              <>
+                <section>
+                  <CloseButtonContainer>
+                    <Dialog.Close asChild>
+                      <CloseButton>
+                        <X size={24} weight="bold" />
+                      </CloseButton>
+                    </Dialog.Close>
+                  </CloseButtonContainer>
 
-                <ItemContent>
-                  <span>Camiseta Beyond the limits</span>
-                  <strong>R$ 79,90</strong>
+                  <Dialog.Title>Sacola de compras</Dialog.Title>
 
-                  <button>Remover</button>
-                </ItemContent>
-              </CartItem>
-            </section>
+                  <ListOfCartItems>
+                    {shoppingCart.products.map((product) => (
+                      <CartItem key={product.id} {...product} />
+                    ))}
+                  </ListOfCartItems>
+                </section>
 
-            <footer>
-              <div>
-                <span>Quantidade</span>
-                <span>3 itens</span>
-              </div>
+                <footer>
+                  <div>
+                    <span>Quantidade</span>
+                    <span>{shoppingCart.quantityOfProducts} itens</span>
+                  </div>
 
-              <div>
-                <strong>Valor total</strong>
-                <strong>R$ 270,00</strong>
-              </div>
+                  <div>
+                    <strong>Valor total</strong>
+                    <strong>R$ {shoppingCart.total}</strong>
+                  </div>
 
-              <button>Finalizar compra</button>
-            </footer>
+                  <button>Finalizar compra</button>
+                </footer>
+              </>
+            )}
           </ShoppingCartContainer>
         </Dialog.Content>
       </Dialog.Portal>

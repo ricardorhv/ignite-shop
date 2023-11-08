@@ -5,6 +5,7 @@ import { Product } from '@/types/interfaces'
 import { Handbag } from '@phosphor-icons/react'
 import { useContext } from 'react'
 import { ShoppingCartContext } from '@/context/ShoppingCartContext'
+import Link from 'next/link'
 
 export function ProductCard(product: Product) {
   const { addProductToTheShoppingCart } = useContext(ShoppingCartContext)
@@ -14,12 +15,10 @@ export function ProductCard(product: Product) {
   }
 
   return (
-    <ProductCardContainer
-      href={`/product/${product.id}`}
-      key={product.id}
-      className="keen-slider__slide"
-    >
-      <Image src={product.imageUrl} width={520} height={480} alt="" />
+    <ProductCardContainer className="keen-slider__slide">
+      <Link href={`/product/${product.id}`}>
+        <Image src={product.imageUrl} width={520} height={480} alt="" />
+      </Link>
 
       <footer>
         <div>

@@ -10,6 +10,7 @@ interface ShoppingCart {
 interface ShoppingCartContextType {
   shoppingCart: ShoppingCart
   addProductToTheShoppingCart: (product: Product) => void
+  removeProductFromTheShoppingCart: (productId: string) => void
 }
 
 export const ShoppingCartContext = createContext({} as ShoppingCartContextType)
@@ -25,8 +26,6 @@ export function ShoppingCartContextProvider({
   const quantityOfProducts = products.length
   const total = 0
 
-  console.log(products)
-
   const shoppingCart = {
     products,
     quantityOfProducts,
@@ -37,11 +36,18 @@ export function ShoppingCartContextProvider({
     setProducts((prevState) => [...prevState, product])
   }
 
+  function removeProductFromTheShoppingCart(productId: string) {
+    setProducts((prevState) => {
+      return prevState.filter((product) => product.id !== productId)
+    })
+  }
+
   return (
     <ShoppingCartContext.Provider
       value={{
         shoppingCart,
         addProductToTheShoppingCart,
+        removeProductFromTheShoppingCart,
       }}
     >
       {children}
