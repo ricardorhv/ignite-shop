@@ -11,9 +11,10 @@ import { stripe } from '@/lib/stripe'
 import Stripe from 'stripe'
 import { useRouter } from 'next/router'
 import axios from 'axios'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import Head from 'next/head'
 import { Product } from '@/types/interfaces'
+import { ShoppingCartContext } from '@/context/ShoppingCartContext'
 
 export default function Product({
   product,
@@ -21,6 +22,8 @@ export default function Product({
   const { isFallback } = useRouter()
   const [isCreatingCheckoutSection, setIsCreatingCheckoutSection] =
     useState(false)
+
+  const { addProductToTheShoppingCart } = useContext(ShoppingCartContext)
 
   if (isFallback) {
     return <p>Loading</p>
@@ -43,6 +46,11 @@ export default function Product({
       alert('Falha ao redirecionar ao checkout!')
     }
   }
+
+  function handleAddProductToTheShoppingCart() {
+    addProductToTheShoppingCart(product)
+  }
+
   return (
     <>
       <Head>
@@ -61,8 +69,8 @@ export default function Product({
           <p>{product.description}</p>
 
           <button
-            disabled={isCreatingCheckoutSection}
-            // onClick={handleBuyProduct}
+            // disabled={isCreatingCheckoutSection}
+            onClick={handleAddProductToTheShoppingCart}
           >
             Colocar na sacola
           </button>

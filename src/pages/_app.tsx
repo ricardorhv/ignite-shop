@@ -11,6 +11,7 @@ import {
   ShoppingCartContextProvider,
 } from '@/context/ShoppingCartContext'
 import { ShoppingCart } from '@/components/ShoppingCart'
+import Link from 'next/link'
 
 globalStyles()
 
@@ -19,13 +20,15 @@ export default function App({ Component, pageProps }: AppProps) {
     <Container>
       <ShoppingCartContextProvider>
         <Header>
-          <Image
-            priority={true}
-            src={logo.src}
-            width={logo.width}
-            height={logo.height}
-            alt=""
-          />
+          <Link href={'/'}>
+            <Image
+              priority={true}
+              src={logo.src}
+              width={logo.width}
+              height={logo.height}
+              alt=""
+            />
+          </Link>
 
           <ShoppingCart />
         </Header>

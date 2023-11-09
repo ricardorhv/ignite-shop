@@ -6,3 +6,8 @@ export interface Product {
   price: string
   defaultPriceId: string
 }
+
+export interface ProductCart extends Product {
+  quantity: number
+  subtotal: string
+}
