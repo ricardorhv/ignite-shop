@@ -1,9 +1,20 @@
 import { keyframes, styled } from '..'
 
-export const ShoppingCarButton = styled('button', {
+export const ShoppingCartButton = styled('button', {
   borderRadius: 6,
 
-  color: '$icon',
+  variants: {
+    color: {
+      emptyCart: {
+        color: '$icon',
+      },
+
+      fullCart: {
+        color: '$gray300',
+      },
+    },
+  },
+
   backgroundColor: '$gray800',
 
   border: 'none',
@@ -69,19 +80,6 @@ const moveOut = keyframes({
 })
 
 export const ShoppingCartContainer = styled('div', {
-  '&[data-state="open"]': {
-    animation: `${moveIn} 400ms ease-in-out`,
-  },
-
-  '&[data-state="closed"]': {
-    animation: `${moveOut} 400ms ease-in-out`,
-  },
-
-  section: {
-    width: '100%',
-    height: '100%',
-  },
-
   position: 'fixed',
   top: 0,
   right: 0,
@@ -97,6 +95,13 @@ export const ShoppingCartContainer = styled('div', {
   alignItems: 'flex-start',
 
   zIndex: 999,
+
+  boxShadow: '-4px 0px 30px #00000080',
+
+  section: {
+    width: '100%',
+    height: '100%',
+  },
 
   h2: {
     fontSize: '$lg',
@@ -153,6 +158,14 @@ export const ShoppingCartContainer = styled('div', {
       },
     },
   },
+
+  '&[data-state="open"]': {
+    animation: `${moveIn} 400ms ease-in-out`,
+  },
+
+  '&[data-state="closed"]': {
+    animation: `${moveOut} 400ms ease-in-out`,
+  },
 })
 
 export const ListOfCartItems = styled('div', {
@@ -160,7 +173,7 @@ export const ListOfCartItems = styled('div', {
   flexDirection: 'column',
   gap: '1.5rem',
 
-  height: '60%',
+  height: '250px',
 
   overflowY: 'scroll',
 

@@ -12,7 +12,7 @@ import {
   CloseButtonContainer,
   EmptyShoppingCart,
   ListOfCartItems,
-  ShoppingCarButton,
+  ShoppingCartButton,
   ShoppingCartContainer,
 } from '@/styles/components/shoppingCart'
 import { CartItem } from './CartItem'
@@ -26,7 +26,9 @@ export function ShoppingCart() {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <ShoppingCarButton>
+        <ShoppingCartButton
+          color={isShoppingCartEmpty ? `emptyCart` : `fullCart`}
+        >
           <Handbag size={24} weight="bold" />
 
           {isShoppingCartEmpty ? (
@@ -36,7 +38,7 @@ export function ShoppingCart() {
               <span>{shoppingCart?.quantityOfProducts}</span>
             </div>
           )}
-        </ShoppingCarButton>
+        </ShoppingCartButton>
       </Dialog.Trigger>
 
       <Dialog.Portal>
@@ -89,7 +91,7 @@ export function ShoppingCart() {
 
                   <div>
                     <strong>Valor total</strong>
-                    <strong>R$ {shoppingCart.total}</strong>
+                    <strong>{shoppingCart.total}</strong>
                   </div>
 
                   <button>Finalizar compra</button>

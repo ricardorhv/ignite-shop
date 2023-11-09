@@ -1,10 +1,10 @@
-import { Product } from '@/types/interfaces'
+import { Product, ProductCart } from '@/types/interfaces'
 import { ReactNode, createContext, useState } from 'react'
 
 interface ShoppingCart {
-  products: Product[]
+  products: ProductCart[]
   quantityOfProducts: number
-  total: number
+  total: string
 }
 
 interface ShoppingCartContextType {
@@ -22,18 +22,51 @@ interface ShoppingCartContextProviderProps {
 export function ShoppingCartContextProvider({
   children,
 }: ShoppingCartContextProviderProps) {
-  const [products, setProducts] = useState<Product[]>([])
+  const [products, setProducts] = useState<ProductCart[]>([])
   const quantityOfProducts = products.length
-  const total = 0
+  const total = products.reduce(
+    (acc, product) => acc + convertPriceToNumber(product.subtotal),
+    0,
+  )
 
   const shoppingCart = {
     products,
     quantityOfProducts,
-    total,
+    total: new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    }).format(total),
+  }
+
+  function convertPriceToNumber(price: string) {
+    return Number(price.replace('R$', '').replace(',', '.'))
+  }
+
+  function calculateTheSubtotal(price: string, quantity: number) {
+    const priceNumber = convertPriceToNumber(price)
+    const subtotal = priceNumber * quantity
+
+    const subtotalString = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    }).format(subtotal)
+
+    return subtotalString
   }
 
   function addProductToTheShoppingCart(product: Product) {
-    setProducts((prevState) => [...prevState, product])
+    const newProduct = {
+      ...product,
+      quantity: 1,
+      subtotal: '',
+    }
+
+    newProduct.subtotal = calculateTheSubtotal(
+      newProduct.price,
+      newProduct.quantity,
+    )
+
+    setProducts((prevState) => [...prevState, newProduct])
   }
 
   function removeProductFromTheShoppingCart(productId: string) {
