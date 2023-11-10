@@ -5,21 +5,22 @@ import logo from '@/assets/logo.svg'
 import Image from 'next/image'
 import { Container, Header } from '@/styles/pages/app'
 
-import { useContext } from 'react'
-import {
-  ShoppingCartContext,
-  ShoppingCartContextProvider,
-} from '@/context/ShoppingCartContext'
+import { ShoppingCartContextProvider } from '@/context/ShoppingCartContext'
 import { ShoppingCart } from '@/components/ShoppingCart'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 globalStyles()
 
 export default function App({ Component, pageProps }: AppProps) {
+  const { pathname } = useRouter()
+
+  const isAtTheSuccessPage = pathname === '/success'
+
   return (
     <Container>
       <ShoppingCartContextProvider>
-        <Header>
+        <Header isAtTheSuccessPage>
           <Link href={'/'}>
             <Image
               priority={true}
@@ -30,7 +31,7 @@ export default function App({ Component, pageProps }: AppProps) {
             />
           </Link>
 
-          <ShoppingCart />
+          {!isAtTheSuccessPage && <ShoppingCart />}
         </Header>
 
         <Component {...pageProps} />

@@ -1,4 +1,4 @@
-import { keyframes, styled } from '..'
+import { styled } from '..'
 
 export const Container = styled('div', {
   display: 'flex',
@@ -10,12 +10,27 @@ export const Container = styled('div', {
 })
 
 export const Header = styled('header', {
+  variants: {
+    isAtTheSuccessPage: {
+      true: {
+        justifyContent: 'center',
+      },
+
+      false: {
+        justifyContent: 'space-between',
+      },
+    },
+  },
+
+  defaultVariants: {
+    isAtTheSuccessPage: 'false',
+  },
+
   padding: '2rem 0',
   width: '100%',
   maxWidth: 1180,
   margin: '0 auto',
 
   display: 'flex',
-  justifyContent: 'space-between',
   alignItems: 'center',
 })
