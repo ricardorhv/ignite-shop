@@ -9,9 +9,7 @@ import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next'
 
 import { stripe } from '@/lib/stripe'
 import Stripe from 'stripe'
-import { useRouter } from 'next/router'
-import axios from 'axios'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import Head from 'next/head'
 import { Product } from '@/types/interfaces'
 import { ShoppingCartContext } from '@/context/ShoppingCartContext'
@@ -19,33 +17,7 @@ import { ShoppingCartContext } from '@/context/ShoppingCartContext'
 export default function Product({
   product,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const { isFallback } = useRouter()
-  const [isCreatingCheckoutSection, setIsCreatingCheckoutSection] =
-    useState(false)
-
   const { addProductToTheShoppingCart } = useContext(ShoppingCartContext)
-
-  if (isFallback) {
-    return <p>Loading</p>
-  }
-
-  async function handleBuyProduct() {
-    try {
-      setIsCreatingCheckoutSection(true)
-
-      const response = await axios.post('/api/checkout', {
-        priceId: product.defaultPriceId,
-      })
-
-      const { checkoutUrl } = response.data
-
-      window.location.href = checkoutUrl
-    } catch (error) {
-      setIsCreatingCheckoutSection(false)
-
-      alert('Falha ao redirecionar ao checkout!')
-    }
-  }
 
   function handleAddProductToTheShoppingCart() {
     const newProduct = {
@@ -74,10 +46,7 @@ export default function Product({
 
           <p>{product.description}</p>
 
-          <button
-            // disabled={isCreatingCheckoutSection}
-            onClick={handleAddProductToTheShoppingCart}
-          >
+          <button onClick={handleAddProductToTheShoppingCart}>
             Colocar na sacola
           </button>
         </ProductDetails>
