@@ -48,7 +48,13 @@ export default function Product({
   }
 
   function handleAddProductToTheShoppingCart() {
-    addProductToTheShoppingCart(product)
+    const newProduct = {
+      ...product,
+      quantity: 1,
+      subtotal: product.price,
+    }
+
+    addProductToTheShoppingCart(newProduct)
   }
 
   return (

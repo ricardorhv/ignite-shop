@@ -11,7 +11,13 @@ export function ProductCard(product: Product) {
   const { addProductToTheShoppingCart } = useContext(ShoppingCartContext)
 
   function handleAddProductToTheShoppingCart() {
-    addProductToTheShoppingCart(product)
+    const newProduct = {
+      ...product,
+      quantity: 1,
+      subtotal: product.price,
+    }
+
+    addProductToTheShoppingCart(newProduct)
   }
 
   return (

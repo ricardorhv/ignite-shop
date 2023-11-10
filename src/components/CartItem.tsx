@@ -8,10 +8,10 @@ import {
   ProductImageContainer,
   RemoveCartItemButton,
 } from '@/styles/components/cartItem'
-import { Product } from '@/types/interfaces'
-import { Minus, Plus } from '@phosphor-icons/react'
+import { ProductCart } from '@/types/interfaces'
+import { QuantityCounter } from './QuantityCounter'
 
-export function CartItem(product: Product) {
+export function CartItem(product: ProductCart) {
   const { removeProductFromTheShoppingCart } = useContext(ShoppingCartContext)
 
   function handleRemoveProductFromTheShoppingCart() {
@@ -26,20 +26,10 @@ export function CartItem(product: Product) {
 
       <ItemContent>
         <span>{product.name}</span>
-        <strong>{product.price}</strong>
+        <strong>{product.subtotal}</strong>
 
         <div>
-          <div>
-            <button>
-              <Minus size={16} />
-            </button>
-
-            <span>1</span>
-
-            <button>
-              <Plus size={16} />
-            </button>
-          </div>
+          <QuantityCounter productId={product.id} quantity={product.quantity} />
 
           <RemoveCartItemButton
             onClick={handleRemoveProductFromTheShoppingCart}

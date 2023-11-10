@@ -1,4 +1,4 @@
-import { Product, ProductCart } from '@/types/interfaces'
+import { ProductCart } from '@/types/interfaces'
 import { ReactNode, createContext, useState } from 'react'
 
 interface ShoppingCart {
@@ -9,8 +9,9 @@ interface ShoppingCart {
 
 interface ShoppingCartContextType {
   shoppingCart: ShoppingCart
-  addProductToTheShoppingCart: (product: Product) => void
+  addProductToTheShoppingCart: (product: ProductCart) => void
   removeProductFromTheShoppingCart: (productId: string) => void
+  updateTheQuantityOfProduct: (productId: string, quantity: number) => void
 }
 
 export const ShoppingCartContext = createContext({} as ShoppingCartContextType)
@@ -23,7 +24,10 @@ export function ShoppingCartContextProvider({
   children,
 }: ShoppingCartContextProviderProps) {
   const [products, setProducts] = useState<ProductCart[]>([])
-  const quantityOfProducts = products.length
+  const quantityOfProducts = products.reduce(
+    (acc, product) => acc + product.quantity,
+    0,
+  )
   const total = products.reduce(
     (acc, product) => acc + convertPriceToNumber(product.subtotal),
     0,
@@ -54,24 +58,51 @@ export function ShoppingCartContextProvider({
     return subtotalString
   }
 
-  function addProductToTheShoppingCart(product: Product) {
-    const newProduct = {
-      ...product,
-      quantity: 1,
-      subtotal: '',
+  function addProductToTheShoppingCart(product: ProductCart) {
+    const hasAlreadyAddedThisProduct =
+      products.find((productCart) => productCart.id === product.id) !==
+      undefined
+
+    if (hasAlreadyAddedThisProduct) {
+      setProducts((prevState) => {
+        return prevState.map((productCart) => {
+          const newQuantity = productCart.quantity + 1
+
+          if (productCart.id === product.id) {
+            return {
+              ...productCart,
+              quantity: newQuantity,
+              subtotal: calculateTheSubtotal(productCart.price, newQuantity),
+            }
+          }
+
+          return productCart
+        })
+      })
+    } else {
+      setProducts((prevState) => [...prevState, product])
     }
-
-    newProduct.subtotal = calculateTheSubtotal(
-      newProduct.price,
-      newProduct.quantity,
-    )
-
-    setProducts((prevState) => [...prevState, newProduct])
   }
 
   function removeProductFromTheShoppingCart(productId: string) {
     setProducts((prevState) => {
       return prevState.filter((product) => product.id !== productId)
+    })
+  }
+
+  function updateTheQuantityOfProduct(productId: string, quantity: number) {
+    setProducts((prevState) => {
+      return prevState.map((product) => {
+        if (product.id === productId) {
+          return {
+            ...product,
+            quantity,
+            subtotal: calculateTheSubtotal(product.price, quantity),
+          }
+        }
+
+        return product
+      })
     })
   }
 
@@ -81,6 +112,7 @@ export function ShoppingCartContextProvider({
         shoppingCart,
         addProductToTheShoppingCart,
         removeProductFromTheShoppingCart,
+        updateTheQuantityOfProduct,
       }}
     >
       {children}

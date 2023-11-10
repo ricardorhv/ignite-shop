@@ -18,8 +18,7 @@ import {
 import { CartItem } from './CartItem'
 
 export function ShoppingCart() {
-  const { shoppingCart, removeProductFromTheShoppingCart } =
-    useContext(ShoppingCartContext)
+  const { shoppingCart } = useContext(ShoppingCartContext)
 
   const isShoppingCartEmpty = shoppingCart.quantityOfProducts === 0
 
