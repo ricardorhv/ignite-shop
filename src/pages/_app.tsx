@@ -20,7 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <Container>
       <ShoppingCartContextProvider>
-        <Header isAtTheSuccessPage>
+        <Header isAtTheSuccessPage={isAtTheSuccessPage}>
           <Link href={'/'}>
             <Image
               priority={true}

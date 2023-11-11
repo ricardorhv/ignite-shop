@@ -4,9 +4,7 @@
 
 <hr>
 
-<h1 align="center"> ⚠️ Application in progress ⚠️ </h1>
-
-<!-- ## Application developed during the classes to learn about NextJS -->
+<h1 align="center">Application developed during the classes to learn about NextJS</h1>
 
 <img src="./public/.github/cover.png">
 
@@ -20,15 +18,14 @@
 
 <br>
 
----
+--- -->
 
 ## 🚀 I went beyond the challenge
 
 I did more than was requested to me
 
-<br>
-
-- ✔️ I did `something`
+- ✔️ I did a `shopping cart` to buy more than one product
+- ✔️ I create a `quantity counter` to each product
 
 <br>
 
@@ -38,7 +35,12 @@ I did more than was requested to me
 
 All the things that I learned and practiced with this project
 
-- I learn `something` to do something
+- I learn `NextJS` to create SSG and SSR applications
+- I learn how to use `getServerSideProps` to run code in the server side
+- I learn how to use `getStaticProps` to run code only when build the application
+- I learn the benefits of using `Link` component from NextJS
+- I learn the benefits of using `Image` component from NextJS
+- I learn how to use the `Stripe` API
 
 <br>
 
@@ -48,18 +50,25 @@ All the things that I learned and practiced with this project
 
 This project was developed using de following technologies:
 
-- [Tech](link)
-- [Tech](link)
+- [React](https://react.dev/)
+- [Typescript](https://www.typescriptlang.org/)
+- [Stripe API](https://stripe.com/docs/api?lang=node)
+- [NextJS](https://nextjs.org/)
+- [Stitches](https://stitches.dev/)
+- [Phosphor Icons](https://phosphoricons.com/)
+- [Radix](https://www.radix-ui.com/)
+- [Axios](https://axios-http.com/ptbr/docs/intro)
+- [Keen slider](https://keen-slider.io/)
 
 <br>
 
---- -->
+---
 
 ## 🔖 Layout
 
 You can view the project layout through the links below:
 
-- [Layout](https://www.figma.com/file/OIJJEW24DFiJO6XLqHw2DM/Ignite-Shop/duplicate)
+- [Layout](https://www.figma.com/file/FxlDRKOmznBbTH8DsTgnZU/Ignite-Shop-2.0/duplicate)
 
 Remembering that you need to have a [Figma](http://figma.com/) account to access it.
 
