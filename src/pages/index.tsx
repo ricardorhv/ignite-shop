@@ -2,9 +2,7 @@ import {
   HomeContainer,
   NavigationLeft,
   NavigationRight,
-  Product,
 } from '@/styles/pages/home'
-import Image from 'next/image'
 
 import { useKeenSlider } from 'keen-slider/react'
 
@@ -14,9 +12,8 @@ import Stripe from 'stripe'
 
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
 import Head from 'next/head'
-import { CaretLeft, CaretRight, Handbag } from '@phosphor-icons/react'
-import { useContext, useState } from 'react'
-import { ShoppingCartContext } from '@/context/ShoppingCartContext'
+import { CaretLeft, CaretRight } from '@phosphor-icons/react'
+import { useState } from 'react'
 import { ProductCard } from '@/components/ProductCard'
 
 interface ProductProps {
@@ -51,7 +48,7 @@ export default function Home({
   }
 
   const isAtTheLastSlide = Math.ceil(
-    (slider.current?.track.details.slides.length - 1) / 3,
+    ((slider.current?.track.details.slides.length as number) - 1) / 3,
   )
 
   return (
