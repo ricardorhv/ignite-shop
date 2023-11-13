@@ -63,9 +63,13 @@ export default function Home({
     slider.current?.next()
   }
 
+  const slides = slider.current?.options.slides as {
+    perView: number
+  }
+
   const isAtTheLastSlide = Math.ceil(
     ((slider.current?.track.details.slides.length as number) - 1) /
-      slider.current?.options.slides.perView,
+      slides?.perView,
   )
 
   return (
