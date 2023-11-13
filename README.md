@@ -10,15 +10,27 @@
 
 ---
 
-<!-- ## 🎥 Preview
+## 🎥 Preview or access the site [here](https://ignite-shop-project.vercel.app/)
 
-### A little about the project 💻
+### Listing all the products 👕
 
-<img src='./github/tour.gif'/>
+<img src='./github/preview/listing-products.gif'/>
 
 <br>
 
---- -->
+### Adding and removing from the shopping cart 🛒
+
+<img src='./github/preview/adding-and-removing-from-shopping-cart.gif'/>
+
+<br>
+
+### Purchasing products 💸
+
+<img src='./github/preview/purchasing-products.gif'/>
+
+<br>
+
+---
 
 ## 🚀 I went beyond the challenge
 
