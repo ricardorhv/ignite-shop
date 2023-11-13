@@ -14,19 +14,19 @@
 
 ### Listing all the products 👕
 
-<img src='./github/preview/listing-products.gif'/>
+<img src='./public/.github/preview/listing-products.gif'/>
 
 <br>
 
 ### Adding and removing from the shopping cart 🛒
 
-<img src='./github/preview/adding-and-removing-from-shopping-cart.gif'/>
+<img src='./public/.github/preview/adding-and-removing-from-shopping-cart.gif'/>
 
 <br>
 
 ### Purchasing products 💸
 
-<img src='./github/preview/purchasing-products.gif'/>
+<img src='./public/.github/preview/purchasing-products.gif'/>
 
 <br>
 
