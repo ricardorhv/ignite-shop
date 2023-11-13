@@ -100,7 +100,7 @@ export const ShoppingCartContainer = styled('div', {
 
   section: {
     width: '100%',
-    height: '100%',
+    overflow: 'hidden',
   },
 
   h2: {
@@ -173,7 +173,7 @@ export const ListOfCartItems = styled('div', {
   flexDirection: 'column',
   gap: '1.5rem',
 
-  height: '250px',
+  height: '50%',
 
   overflowY: 'scroll',
 
