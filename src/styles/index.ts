@@ -36,4 +36,8 @@ export const { styled, globalCss, getCssText, theme, config, css, keyframes } =
         '2xl': '2rem',
       },
     },
+
+    media: {
+      bp1: '(min-width: 1024px)',
+    },
   })

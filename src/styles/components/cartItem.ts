@@ -2,7 +2,7 @@ import { styled } from '..'
 
 export const CartItemContainer = styled('div', {
   display: 'flex',
-  alignItems: 'flex-start',
+  alignItems: 'stretch',
   gap: '1.25rem',
 })
 

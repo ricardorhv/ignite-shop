@@ -28,11 +28,27 @@ export default function Home({
   products,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [currentSlide, setCurrentSlide] = useState(0)
+
   const [sliderRef, slider] = useKeenSlider({
     initial: 0,
-    slides: {
-      perView: 3,
-      spacing: 48,
+    breakpoints: {
+      '(min-width: 0px)': {
+        slides: {
+          perView: 1,
+        },
+      },
+      '(min-width: 768px)': {
+        slides: {
+          perView: 2,
+          spacing: 32,
+        },
+      },
+      '(min-width: 968px)': {
+        slides: {
+          perView: 3,
+          spacing: 48,
+        },
+      },
     },
     slideChanged: (slide) => {
       setCurrentSlide(slide.track.details.rel)
@@ -48,7 +64,8 @@ export default function Home({
   }
 
   const isAtTheLastSlide = Math.ceil(
-    ((slider.current?.track.details.slides.length as number) - 1) / 3,
+    ((slider.current?.track.details.slides.length as number) - 1) /
+      slider.current?.options.slides.perView,
   )
 
   return (

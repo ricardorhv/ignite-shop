@@ -87,7 +87,7 @@ export const ShoppingCartContainer = styled('div', {
   backgroundColor: '$gray800',
   height: '100vh',
   padding: '1.5rem 3rem 3rem',
-  width: '30rem',
+  width: 'min(80%, 30rem)',
 
   display: 'flex',
   flexDirection: 'column',
