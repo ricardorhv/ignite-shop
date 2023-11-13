@@ -15,7 +15,7 @@ import { Product } from '@/types/interfaces'
 import { ShoppingCartContext } from '@/context/ShoppingCartContext'
 
 export default function Product({
-  product,
+  product = {} as Product,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { addProductToTheShoppingCart } = useContext(ShoppingCartContext)
 
