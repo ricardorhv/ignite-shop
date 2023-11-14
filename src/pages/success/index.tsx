@@ -8,6 +8,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import Stripe from 'stripe'
 
 interface SuccessProps {
@@ -19,9 +20,14 @@ interface SuccessProps {
   quantityOfProducts: number
 }
 
-export default function Success({
-  teste,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Success() {
+  //   products,
+  //   customerName,
+  //   quantityOfProducts,
+  // }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const { query } = useRouter()
+
+
   return (
     <>
       <Head>
@@ -31,7 +37,7 @@ export default function Success({
       </Head>
 
       <SuccessContainer>
-        <h1>Compra efetuada! {teste}</h1>
+        <h1>Compra efetuada! {query?.id}</h1>
 
         {/* <ImageList>
           {products.map((product) => (
@@ -54,55 +60,49 @@ export default function Success({
   )
 }
 
-export const getServerSideProps = (async ({ query }) => {
-  console.log('Rodei')
+// export const getServerSideProps = (async ({ query }) => {
+//   console.log('Rodei')
 
-  // if (!query.session_id) {
-  //   return {
-  //     redirect: {
-  //       destination: '/',
-  //       permanent: false,
-  //     },
-  //   }
-  // }
+//   if (!query.session_id) {
+//     return {
+//       redirect: {
+//         destination: '/',
+//         permanent: false,
+//       },
+//     }
+//   }
 
-  // const sessionId = String(query.session_id)
+//   const sessionId = String(query.session_id)
 
-  // const checkout = await stripe.checkout.sessions.retrieve(sessionId, {
-  //   expand: ['line_items', 'line_items.data.price.product'],
-  // })
+//   const checkout = await stripe.checkout.sessions.retrieve(sessionId, {
+//     expand: ['line_items', 'line_items.data.price.product'],
+//   })
 
-  // const customerName = checkout.customer_details?.name as string
-  // const productsCart = checkout.line_items?.data as {
-  //   price: {
-  //     product: Stripe.Product
-  //   }
-  //   quantity: number
-  // }[]
+//   const customerName = checkout.customer_details?.name as string
+//   const productsCart = checkout.line_items?.data as {
+//     price: {
+//       product: Stripe.Product
+//     }
+//     quantity: number
+//   }[]
 
-  // const quantityOfProducts = productsCart?.reduce(
-  //   (acc, product) => acc + (product.quantity as number),
-  //   0,
-  // ) as number
+//   const quantityOfProducts = productsCart?.reduce(
+//     (acc, product) => acc + (product.quantity as number),
+//     0,
+//   ) as number
 
-  // const products = productsCart?.map((product) => {
-  //   return {
-  //     name: product?.price.product.name,
-  //     imageUrl: product?.price.product.images[0],
-  //   }
-  // })
+//   const products = productsCart?.map((product) => {
+//     return {
+//       name: product?.price.product.name,
+//       imageUrl: product?.price.product.images[0],
+//     }
+//   })
 
-  // return {
-  //   props: {
-  //     customerName,
-  //     quantityOfProducts,
-  //     products,
-  //   },
-  // }
-
-  return {
-    props: {
-      teste: 'Testando',
-    },
-  }
-}) satisfies GetServerSideProps<{ teste: string }>
+//   return {
+//     props: {
+//       customerName,
+//       quantityOfProducts,
+//       products,
+//     },
+//   }
+// }) satisfies GetServerSideProps<SuccessProps>
