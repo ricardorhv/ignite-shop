@@ -11,7 +11,7 @@ import { stripe } from '@/lib/stripe'
 import Stripe from 'stripe'
 import { useContext } from 'react'
 import Head from 'next/head'
-import { Product } from '@/types/interfaces'
+import { Product, ProductCart } from '@/types/interfaces'
 import { ShoppingCartContext } from '@/context/ShoppingCartContext'
 
 export default function Product({
@@ -26,7 +26,7 @@ export default function Product({
       subtotal: product.price,
     }
 
-    addProductToTheShoppingCart(newProduct)
+    addProductToTheShoppingCart(newProduct as ProductCart)
   }
 
   return (
@@ -63,13 +63,30 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths
 
 export const getStaticProps = (async ({ params }) => {
-  const productId = params?.id as string
+  let productId = null
+  let product = {} as {
+    id: string
+    name: string | null
+    description: string | null
+    default_price?: string | Stripe.Price | null | undefined
+    images: string[]
+  }
+  let price = {} as {
+    id: string
+    unit_amount: number | null
+  }
 
-  const product = await stripe.products.retrieve(productId, {
-    expand: ['default_price'],
-  })
+  try {
+    productId = params?.id as string
 
-  const price = product.default_price as Stripe.Price
+    product = await stripe.products.retrieve(productId, {
+      expand: ['default_price'],
+    })
+
+    price = product.default_price as Stripe.Price
+  } catch (err) {
+    alert(err)
+  }
 
   return {
     props: {
