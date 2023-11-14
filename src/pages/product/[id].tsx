@@ -56,9 +56,21 @@ export default function Product({
 }
 
 export const getStaticPaths = (async () => {
+  const products = await stripe.products.list({
+    expand: ['data.default_price'],
+  })
+
+  const paths = products.data.map((product) => {
+    return {
+      params: {
+        id: product.id,
+      },
+    }
+  })
+
   return {
-    paths: [],
-    fallback: 'blocking',
+    paths,
+    fallback: true,
   }
 }) satisfies GetStaticPaths
 
