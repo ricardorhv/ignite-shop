@@ -68,9 +68,12 @@ export const getServerSideProps = (async ({ query }) => {
 
   const sessionId = String(query.session_id)
 
+  console.log(sessionId)
+
   const checkout = await stripe.checkout.sessions.retrieve(sessionId, {
     expand: ['line_items', 'line_items.data.price.product'],
   })
+  console.log(checkout)
 
   const customerName = checkout.customer_details?.name as string
   const productsCart = checkout.line_items?.data as {
@@ -91,6 +94,8 @@ export const getServerSideProps = (async ({ query }) => {
       imageUrl: product?.price.product.images[0],
     }
   })
+
+  console.log(products)
 
   return {
     props: {
