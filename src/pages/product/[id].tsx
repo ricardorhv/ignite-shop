@@ -19,6 +19,8 @@ export default function Product({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { addProductToTheShoppingCart } = useContext(ShoppingCartContext)
 
+  console.log(product)
+
   function handleAddProductToTheShoppingCart() {
     const newProduct = {
       ...product,
@@ -70,6 +72,9 @@ export const getStaticProps = (async ({ params }) => {
   })
 
   const price = product.default_price as Stripe.Price
+
+  console.log(product)
+  console.log(price)
 
   return {
     props: {
