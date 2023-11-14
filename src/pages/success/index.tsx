@@ -24,6 +24,8 @@ export default function Success({
   customerName,
   quantityOfProducts,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  console.log(products)
+
   return (
     <>
       <Head>
