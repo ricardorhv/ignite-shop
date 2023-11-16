@@ -111,7 +111,7 @@ export default function Success({
   )
 }
 
-export const getServerSideProps = (async ({ query }) => {
+export const getServerSideProps = (async () => {
   // console.log('Rodei')
 
   // if (!query.session_id) {

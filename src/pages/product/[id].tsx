@@ -13,9 +13,10 @@ import { useContext } from 'react'
 import Head from 'next/head'
 import { Product } from '@/types/interfaces'
 import { ShoppingCartContext } from '@/context/ShoppingCartContext'
+import axios from 'axios'
 
 export default function Product({
-  product = {} as Product,
+  product,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { addProductToTheShoppingCart } = useContext(ShoppingCartContext)
 
@@ -32,19 +33,19 @@ export default function Product({
   return (
     <>
       <Head>
-        <title>{product.name} | Ignite shop</title>
+        <title>{product?.name} | Ignite shop</title>
       </Head>
 
       <ProductContainer>
         <ImageContainer>
-          <Image src={product.imageUrl} width={520} height={480} alt="" />
+          <Image src={product?.imageUrl} width={520} height={480} alt="" />
         </ImageContainer>
 
         <ProductDetails>
-          <h1>{product.name}</h1>
-          <span>{product.price}</span>
+          <h1>{product?.name}</h1>
+          <span>{product?.price}</span>
 
-          <p>{product.description}</p>
+          <p>{product?.description}</p>
 
           <button onClick={handleAddProductToTheShoppingCart}>
             Colocar na sacola
@@ -56,20 +57,20 @@ export default function Product({
 }
 
 export const getStaticPaths = (async () => {
-  const products = await stripe.products.list({
-    expand: ['data.default_price'],
-  })
+  // const products = await stripe.products.list({
+  //   expand: ['data.default_price'],
+  // })
 
-  const paths = products.data.map((product) => {
-    return {
-      params: {
-        id: product.id,
-      },
-    }
-  })
+  // const paths = products.data.map((product) => {
+  //   return {
+  //     params: {
+  //       id: product.id,
+  //     },
+  //   }
+  // })
 
   return {
-    paths,
+    paths: [],
     fallback: true,
   }
 }) satisfies GetStaticPaths
