@@ -14,11 +14,13 @@ import Head from 'next/head'
 import { Product } from '@/types/interfaces'
 import { ShoppingCartContext } from '@/context/ShoppingCartContext'
 import axios from 'axios'
+import { useRouter } from 'next/router'
 
 export default function Product({
   product,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { addProductToTheShoppingCart } = useContext(ShoppingCartContext)
+  const { isFallback } = useRouter()
 
   function handleAddProductToTheShoppingCart() {
     const newProduct = {
@@ -36,22 +38,26 @@ export default function Product({
         <title>{product?.name} | Ignite shop</title>
       </Head>
 
-      <ProductContainer>
-        <ImageContainer>
-          <Image src={product?.imageUrl} width={520} height={480} alt="" />
-        </ImageContainer>
+      {isFallback ? (
+        'Loading...'
+      ) : (
+        <ProductContainer>
+          <ImageContainer>
+            <Image src={product?.imageUrl} width={520} height={480} alt="" />
+          </ImageContainer>
 
-        <ProductDetails>
-          <h1>{product?.name}</h1>
-          <span>{product?.price}</span>
+          <ProductDetails>
+            <h1>{product?.name}</h1>
+            <span>{product?.price}</span>
 
-          <p>{product?.description}</p>
+            <p>{product?.description}</p>
 
-          <button onClick={handleAddProductToTheShoppingCart}>
-            Colocar na sacola
-          </button>
-        </ProductDetails>
-      </ProductContainer>
+            <button onClick={handleAddProductToTheShoppingCart}>
+              Colocar na sacola
+            </button>
+          </ProductDetails>
+        </ProductContainer>
+      )}
     </>
   )
 }

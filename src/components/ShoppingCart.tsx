@@ -27,10 +27,6 @@ export function ShoppingCart() {
 
   const isShoppingCartEmpty = shoppingCart.quantityOfProducts === 0
 
-  if (isFallback) {
-    return <p>Loading</p>
-  }
-
   async function handleBuyProduct() {
     try {
       setIsCreatingCheckoutSection(true)
