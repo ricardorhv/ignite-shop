@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { useContext, useState } from 'react'
 import { ShoppingCartContext } from '@/context/ShoppingCartContext'
 
-import { Handbag, SmileySad, X } from '@phosphor-icons/react'
+import { Handbag, SmileySad, X } from 'phosphor-react'
 
 import {
   CloseButton,

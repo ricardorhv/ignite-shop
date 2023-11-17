@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 import { ProductCardContainer } from '@/styles/components/productCard'
 import { Product } from '@/types/interfaces'
-import { Handbag } from '@phosphor-icons/react'
+import { Handbag } from 'phosphor-react'
 import { useContext } from 'react'
 import { ShoppingCartContext } from '@/context/ShoppingCartContext'
 import Link from 'next/link'

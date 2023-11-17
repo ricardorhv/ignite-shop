@@ -1,6 +1,6 @@
 import { ShoppingCartContext } from '@/context/ShoppingCartContext'
 import { QuantityCounterContainer } from '@/styles/components/quantityCounter'
-import { Minus, Plus } from '@phosphor-icons/react'
+import { Minus, Plus } from 'phosphor-react'
 import { useContext, useEffect, useState } from 'react'
 
 interface QuantityCounterProps {

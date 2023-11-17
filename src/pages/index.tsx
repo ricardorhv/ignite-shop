@@ -12,7 +12,7 @@ import Stripe from 'stripe'
 
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
 import Head from 'next/head'
-import { CaretLeft, CaretRight } from '@phosphor-icons/react'
+import { CaretLeft, CaretRight } from 'phosphor-react'
 import { useState } from 'react'
 import { ProductCard } from '@/components/ProductCard'
 
