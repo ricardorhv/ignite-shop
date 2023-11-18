@@ -17,11 +17,16 @@ import Stripe from 'stripe'
 import { Product } from '@/types/interfaces'
 import { ShoppingCartContext } from '@/context/ShoppingCartContext'
 
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
+
 export default function Product({
   product,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { addProductToTheShoppingCart } = useContext(ShoppingCartContext)
   const { isFallback } = useRouter()
+
+  const pageTitle = product ? `${product?.name} | Ignite shop` : 'Ignite shop'
 
   function handleAddProductToTheShoppingCart() {
     const newProduct = {
@@ -35,9 +40,9 @@ export default function Product({
   }
 
   return (
-    <>
+    <SkeletonTheme baseColor="#808083">
       <Head>
-        <title>{product?.name} | Ignite shop</title>
+        <title>{pageTitle || 'Ignite Shop'}</title>
       </Head>
 
       <ToastContainer
@@ -49,28 +54,31 @@ export default function Product({
         rtl={false}
         theme="dark"
       />
-
-      {isFallback ? (
-        'Loading...'
-      ) : (
-        <ProductContainer>
+      <ProductContainer>
+        {product?.imageUrl ? (
           <ImageContainer>
             <Image src={product?.imageUrl} width={520} height={480} alt="" />
           </ImageContainer>
+        ) : (
+          <Skeleton width="100%" height={480} />
+        )}
 
-          <ProductDetails>
-            <h1>{product?.name}</h1>
-            <span>{product?.price}</span>
+        <ProductDetails>
+          <h1>{product?.name || <Skeleton inline />}</h1>
+          <span>{product?.price || <Skeleton inline />}</span>
 
-            <p>{product?.description}</p>
+          <p>{product?.description || <Skeleton count={4} inline />}</p>
 
+          {product ? (
             <button onClick={handleAddProductToTheShoppingCart}>
               Colocar na sacola
             </button>
-          </ProductDetails>
-        </ProductContainer>
-      )}
-    </>
+          ) : (
+            <Skeleton width="100%" height={61} />
+          )}
+        </ProductDetails>
+      </ProductContainer>
+    </SkeletonTheme>
   )
 }
 
