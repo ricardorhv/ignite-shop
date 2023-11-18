@@ -7,13 +7,16 @@ import {
 import { useKeenSlider } from 'keen-slider/react'
 
 import 'keen-slider/keen-slider.min.css'
+import { ToastContainer } from 'react-toastify'
+
 import { stripe } from '@/lib/stripe'
 import Stripe from 'stripe'
 
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
 import Head from 'next/head'
-import { CaretLeft, CaretRight } from 'phosphor-react'
 import { useState } from 'react'
+
+import { CaretLeft, CaretRight } from 'phosphor-react'
 import { ProductCard } from '@/components/ProductCard'
 
 interface ProductProps {
@@ -78,6 +81,15 @@ export default function Home({
         <title>Home | Ignite shop</title>
       </Head>
       <HomeContainer ref={sliderRef} className="keen-slider">
+        <ToastContainer
+          position="top-center"
+          autoClose={4000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          theme="dark"
+        />
         <NavigationLeft onClick={prevSlide} disabled={currentSlide === 0}>
           <CaretLeft size={40} weight="bold" />
         </NavigationLeft>

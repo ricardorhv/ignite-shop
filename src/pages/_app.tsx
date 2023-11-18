@@ -9,8 +9,13 @@ import { ShoppingCartContextProvider } from '@/context/ShoppingCartContext'
 import { ShoppingCart } from '@/components/ShoppingCart'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { injectStyle } from 'react-toastify/dist/inject-style'
 
 globalStyles()
+
+if (typeof window !== 'undefined') {
+  injectStyle()
+}
 
 export default function App({ Component, pageProps }: AppProps) {
   const { pathname } = useRouter()

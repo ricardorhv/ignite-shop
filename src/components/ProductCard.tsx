@@ -6,6 +6,7 @@ import { Handbag } from 'phosphor-react'
 import { useContext } from 'react'
 import { ShoppingCartContext } from '@/context/ShoppingCartContext'
 import Link from 'next/link'
+import { toast } from 'react-toastify'
 
 export function ProductCard(product: Product) {
   const { addProductToTheShoppingCart } = useContext(ShoppingCartContext)
@@ -18,6 +19,7 @@ export function ProductCard(product: Product) {
     }
 
     addProductToTheShoppingCart(newProduct)
+    toast.success(`${product.name} foi adicionado no carrinho`)
   }
 
   return (

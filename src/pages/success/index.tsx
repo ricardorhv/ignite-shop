@@ -23,49 +23,10 @@ interface SuccessProps {
 }
 
 export default function Success({
-  teste,
+  customerName,
+  products,
+  quantityOfProducts,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  // const [checkoutDetails, setCheckoutDetails] = useState({} as SuccessProps)
-  // const { query } = useRouter()
-
-  // const sessionId = String(query?.session_id)
-
-  // async function getCheckoutDetails() {
-  //   const checkout = await stripe.checkout.sessions.retrieve(sessionId, {
-  //     expand: ['line_items', 'line_items.data.price.product'],
-  //   })
-
-  //   const customerName = checkout.customer_details?.name as string
-  //   const productsCart = checkout.line_items?.data as {
-  //     price: {
-  //       product: Stripe.Product
-  //     }
-  //     quantity: number
-  //   }[]
-
-  //   const quantityOfProducts = productsCart?.reduce(
-  //     (acc, product) => acc + (product.quantity as number),
-  //     0,
-  //   ) as number
-
-  //   const products = productsCart?.map((product) => {
-  //     return {
-  //       name: product?.price.product.name,
-  //       imageUrl: product?.price.product.images[0],
-  //     }
-  //   })
-
-  //   setCheckoutDetails({
-  //     customerName,
-  //     quantityOfProducts,
-  //     products,
-  //   })
-  // }
-
-  // useEffect(() => {
-  //   getCheckoutDetails()
-  // }, [])
-
   return (
     <>
       <Head>
@@ -75,67 +36,69 @@ export default function Success({
       </Head>
 
       <SuccessContainer>
-        <h1>Compra efetuada! {teste}</h1>
+        <h1>Compra efetuada!</h1>
 
-        {/* {checkoutDetails.products ? (
-          <>
-            <ImageList>
-              {checkoutDetails.products.map((product) => (
-                <ImageContainer key={product.name}>
-                  <Image
-                    src={product.imageUrl}
-                    alt=""
-                    width={130}
-                    height={130}
-                  />
-                </ImageContainer>
-              ))}
-            </ImageList>
+        <ImageList>
+          {products.map((product) => (
+            <ImageContainer key={product.name}>
+              <Image src={product.imageUrl} alt="" width={130} height={130} />
+            </ImageContainer>
+          ))}
+        </ImageList>
 
-            <p>
-              Uhuul <strong>{checkoutDetails.customerName}</strong>, sua compra
-              de {checkoutDetails.quantityOfProducts}{' '}
-              {checkoutDetails.quantityOfProducts > 1
-                ? `camisetas`
-                : `camiseta`}{' '}
-              já está a caminho da sua casa.
-            </p>
-          </>
-        ) : (
-          'loading'
-        )} */}
-
+        <p>
+          Uhuul <strong>{customerName}</strong>, sua compra de{' '}
+          {quantityOfProducts}{' '}
+          {quantityOfProducts > 1 ? `camisetas` : `camiseta`} já está a caminho
+          da sua casa.
+        </p>
         <Link href="/">Voltar ao catálogo</Link>
       </SuccessContainer>
     </>
   )
 }
 
-export const getServerSideProps = (async () => {
-  // console.log('Rodei')
+export const getServerSideProps = (async ({ query }) => {
+  if (!query.session_id) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
 
-  // if (!query.session_id) {
-  //   return {
-  //     redirect: {
-  //       destination: '/',
-  //       permanent: false,
-  //     },
-  //   }
-  // }
+  const sessionId = String(query.session_id)
 
-  // const sessionId = String(query.session_id)
+  const checkout = await stripe.checkout.sessions.retrieve(sessionId, {
+    expand: ['line_items', 'line_items.data.price.product'],
+  })
 
-  // return {
-  //   props: {
-  //     customerName,
-  //     quantityOfProducts,
-  //     products,
-  //   },
-  // }
+  const customerName = checkout.customer_details?.name as string
+  const productsCart = checkout.line_items?.data as {
+    price: {
+      product: Stripe.Product
+    }
+    quantity: number
+  }[]
+
+  const quantityOfProducts = productsCart?.reduce(
+    (acc, product) => acc + (product.quantity as number),
+    0,
+  ) as number
+
+  const products = productsCart?.map((product) => {
+    return {
+      name: product?.price.product.name,
+      imageUrl: product?.price.product.images[0],
+    }
+  })
 
   return {
     props: {
-      teste: 'Testando',
+      customerName,
+      quantityOfProducts,
+      products,
     },
   }
-}) satisfies GetServerSideProps<{ teste: string }>
+}) satisfies GetServerSideProps<SuccessProps>

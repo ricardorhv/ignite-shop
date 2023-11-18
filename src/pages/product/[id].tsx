@@ -3,18 +3,19 @@ import {
   ProductContainer,
   ProductDetails,
 } from '@/styles/pages/product'
+import { ToastContainer, toast } from 'react-toastify'
 
 import Image from 'next/image'
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
+import { useContext } from 'react'
 
 import { stripe } from '@/lib/stripe'
 import Stripe from 'stripe'
-import { useContext } from 'react'
-import Head from 'next/head'
+
 import { Product } from '@/types/interfaces'
 import { ShoppingCartContext } from '@/context/ShoppingCartContext'
-import axios from 'axios'
-import { useRouter } from 'next/router'
 
 export default function Product({
   product,
@@ -30,6 +31,7 @@ export default function Product({
     }
 
     addProductToTheShoppingCart(newProduct)
+    toast.success(`${product.name} foi adicionado no carrinho`)
   }
 
   return (
@@ -37,6 +39,16 @@ export default function Product({
       <Head>
         <title>{product?.name} | Ignite shop</title>
       </Head>
+
+      <ToastContainer
+        position="top-center"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        theme="dark"
+      />
 
       {isFallback ? (
         'Loading...'
@@ -63,18 +75,6 @@ export default function Product({
 }
 
 export const getStaticPaths = (async () => {
-  // const products = await stripe.products.list({
-  //   expand: ['data.default_price'],
-  // })
-
-  // const paths = products.data.map((product) => {
-  //   return {
-  //     params: {
-  //       id: product.id,
-  //     },
-  //   }
-  // })
-
   return {
     paths: [],
     fallback: true,
